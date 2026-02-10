@@ -65,7 +65,10 @@ export default function CalculadoraPage() {
                 className={styles.input}
                 type="number"
                 value={capital}
-                onChange={(e) => setCapital(Number(e.target.value))}
+                onChange={(e) => {
+                    setCapital(Number(e.target.value));
+                    setResultado(null); // reseta o resultado
+                }}
             />
             </div>
 
@@ -75,7 +78,11 @@ export default function CalculadoraPage() {
                 className={styles.input}
                 type="number"
                 value={invesMensal}
-                onChange={(e) => setInvesMensal(Number(e.target.value))}
+
+                onChange={(e) =>{ 
+                    setInvesMensal(Number(e.target.value))
+                    setResultado(null); // reseta o resultado
+                }}
             />
             </div>
 
@@ -85,7 +92,11 @@ export default function CalculadoraPage() {
                 className={styles.input}
                 type="number"   
                 value={taxa}
-                onChange={(e) => setTaxa(Number(e.target.value))}
+
+                onChange={(e) =>{ 
+                    setTaxa(Number(e.target.value))
+                    setResultado(null); // reseta o resultado
+                }}
             />
             </div>
 
@@ -96,7 +107,10 @@ export default function CalculadoraPage() {
                 name="tipoJuros"
                 value="anual"
                 checked={tipoJuros === "anual"}
-                onChange={(e) => setTipoJuros(e.target.value)}
+                onChange={(e) =>{ 
+                    setTipoJuros(e.target.value)
+                    setResultado(null); // reseta o resultado
+                }}
                 />
                 Anual
             </label>
@@ -107,7 +121,10 @@ export default function CalculadoraPage() {
                 name="tipoJuros"
                 value="mensal"
                 checked={tipoJuros === "mensal"}
-                onChange={(e) => setTipoJuros(e.target.value)}
+                onChange={(e) =>{ 
+                    setTipoJuros((e.target.value))
+                    setResultado(null); // reseta o resultado
+                }}
                 />
                 Mensal
             </label>
@@ -119,7 +136,12 @@ export default function CalculadoraPage() {
                 className={styles.input}
                 type="number"
                 value={tempo}
-                onChange={(e) => setTempo(Number(e.target.value))}
+
+                onChange={(e) =>{ 
+                    setTempo(Number(e.target.value))
+                    setResultado(null); // reseta o resultado
+                }}
+
             />
             </div>
 
@@ -134,7 +156,9 @@ export default function CalculadoraPage() {
 
             {resultado !== null && (
             <div className={styles.result}>
-                Montante final: {formatMoney(resultado)}
+                <p>Valor investido: {formatMoney(capital + (invesMensal * tempo))}</p>
+                <p>Total de juros: {resultado && resultado > capital ? formatMoney(resultado - capital - (invesMensal * tempo)) : "R$: 0,00"}</p>
+                <p>Montante final: {resultado ? formatMoney(resultado) : formatMoney(capital + (invesMensal * tempo))}</p>
             </div>
             )}
 
