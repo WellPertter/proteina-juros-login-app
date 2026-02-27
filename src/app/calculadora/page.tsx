@@ -53,7 +53,21 @@ export default function CalculadoraPage() {
         setResultado(null);
     };
     
+    const formatCurrency = (value: number): string => {
+        if (!value) return "";
 
+        return value.toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL",
+            minimumFractionDigits: 2,
+        });
+    };
+
+    const parseCurrency = (value: string): number => {
+        const onlyNumbers = value.replace(/\D/g, "");
+        return Number(onlyNumbers) / 100;
+    };
+    
   return (
     <div className={styles.container}>
         <div className={styles.card}>
@@ -63,13 +77,15 @@ export default function CalculadoraPage() {
             <label>Capital inicial ($)</label>
             <input
                 className={styles.input}
-                type="number"
-                value={capital}
+                type="text"
+                value={formatCurrency(capital)}
                 onChange={(e) => {
-                    setCapital(Number(e.target.value));
-                    setResultado(null); // reseta o resultado
+                    const numericValue = parseCurrency(e.target.value);
+                    setCapital(numericValue);
+                    setResultado(null);
                 }}
             />
+
             </div>
 
             <div className={styles.inputGroup}>
