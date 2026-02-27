@@ -67,7 +67,7 @@ export default function CalculadoraPage() {
         const onlyNumbers = value.replace(/\D/g, "");
         return Number(onlyNumbers) / 100;
     };
-    
+
   return (
     <div className={styles.container}>
         <div className={styles.card}>
@@ -92,12 +92,12 @@ export default function CalculadoraPage() {
             <label>Investimento Mensal ($)</label>
             <input
                 className={styles.input}
-                type="number"
-                value={invesMensal}
-
-                onChange={(e) =>{ 
-                    setInvesMensal(Number(e.target.value))
-                    setResultado(null); // reseta o resultado
+                type="text"
+                value={formatCurrency(invesMensal)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    const numericValue = parseCurrency(e.target.value);
+                    setInvesMensal(numericValue);
+                    setResultado(null);
                 }}
             />
             </div>
